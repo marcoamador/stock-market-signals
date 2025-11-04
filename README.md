@@ -1,6 +1,6 @@
 # Stock Market Watchlist Application
 
-A full-stack web application for tracking stock prices in real-time. Built with React frontend and Express backend, integrated with Finnhub Stock API.
+A full-stack web application for tracking stock prices in real-time. Built with React frontend and Express backend, integrated with Alpaca Markets API.
 
 ## Features
 
@@ -18,7 +18,7 @@ A full-stack web application for tracking stock prices in real-time. Built with 
 - Express.js
 - SQLite (better-sqlite3)
 - Axios for API calls
-- Finnhub Stock API
+- Alpaca Markets API
 
 ### Frontend
 - React 18
@@ -29,15 +29,18 @@ A full-stack web application for tracking stock prices in real-time. Built with 
 
 - Node.js (v14 or higher)
 - npm or yarn
-- Finnhub API key (free tier available)
+- Alpaca Markets API keys (free tier available with generous rate limits)
 
 ## Getting Started
 
-### 1. Get a Finnhub API Key
+### 1. Get Alpaca Markets API Keys
 
-1. Visit [Finnhub.io](https://finnhub.io/)
+1. Visit [Alpaca Markets](https://alpaca.markets/)
 2. Sign up for a free account
-3. Get your API key from the dashboard
+3. Navigate to the dashboard and generate **Paper Trading API Keys**
+4. You'll receive two keys:
+   - API Key ID
+   - Secret Key (save this immediately - it's only shown once!)
 
 ### 2. Clone and Install
 
@@ -53,9 +56,10 @@ npm run install:all
 cp backend/.env.example backend/.env
 ```
 
-Edit `backend/.env` and add your Finnhub API key:
+Edit `backend/.env` and add your Alpaca API keys:
 ```
-FINNHUB_API_KEY=your_api_key_here
+ALPACA_API_KEY_ID=your_api_key_id_here
+ALPACA_API_SECRET_KEY=your_secret_key_here
 PORT=5000
 ```
 
@@ -161,17 +165,22 @@ stock-market-signals/
 
 ## Notes
 
-- The free tier of Finnhub API has rate limits (60 calls/minute)
-- Market data is delayed by 15 minutes for free tier
+- **Alpaca Markets free tier has excellent rate limits: 200 API calls per minute!**
+- Free tier provides access to US stock market data
+- Market data includes real-time pricing during market hours
+- 10 years of historical 1-minute bar data included
 - The watchlist is stored locally in SQLite database
 - Stock prices are fetched in real-time when you refresh
+- Only US equities are supported (NYSE, NASDAQ, etc.)
 
 ## Troubleshooting
 
 ### API Key Issues
 - Make sure your `.env` file is in the `backend/` directory
-- Verify your API key is valid on Finnhub.io
-- Check that the key is properly set (no quotes or extra spaces)
+- Verify your API keys are valid on Alpaca Markets dashboard
+- Ensure you're using **Paper Trading** API keys (not Live Trading)
+- Check that both keys are properly set (no quotes or extra spaces)
+- The Secret Key is only shown once during generation - if lost, generate new keys
 
 ### CORS Issues
 - The backend runs on port 5000, frontend on 3000
